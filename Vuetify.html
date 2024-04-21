@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Списочек фильмов и сериалов вас интересующих</title>
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.5.9/dist/vuetify.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="app">
+    <v-app>
+      <v-main>
+        <v-container>
+          <h1 class="display-1 text-center my-5">Список фильмов и сериалов которые нужно посмотреть</h1>
+          <v-card>
+            <v-card-text>
+              <v-text-field v-model="newTask" label="Новый фильм/ сериал" outlined></v-text-field>
+              <v-btn color="info" @click="addTask">Добавить фильм/сериал</v-btn>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-list>
+              <v-list-item v-for="(task, index) in tasks" :key="index">
+                <v-list-item-content>
+                  <v-list-item-title>{{ task }}</v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-action>
+                  <v-btn icon @click="deleteTask(index)">
+                    <v-icon>mdi-delete</v-icon>
+                  </v-btn>
+                </v-list-item-action>
+              </v-list-item>
+            </v-list>
+          </v-card>
+          
+        </v-container>
+      </v-main>
+    </v-app>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.5.9/dist/vuetify.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+      data() {
+        return {
+          newTask: '',
+          tasks: []
+        }
+      },
+      methods: {
+        addTask() {
+          if (this.newTask !== '') {
+            this.tasks.push(this.newTask);
+            this.newTask = '';
+          }
+        },
+        deleteTask(index) {
+          this.tasks.splice(index, 1);
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
